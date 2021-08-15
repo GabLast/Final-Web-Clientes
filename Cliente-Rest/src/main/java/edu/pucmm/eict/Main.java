@@ -27,15 +27,16 @@ public class Main {
         System.out.println("\nListado de URLs");
         System.out.println("HTTP Status: " + listadoURLS.getStatus());
         System.out.println("HTTP Message: " + listadoURLS.getBody().toString());
+        System.out.println("HTTP Headers: " + listadoURLS.getHeaders());
 
 
         //Registrar (Acortar) una URL
-        System.out.println("URL Original que desea acortar: ");
+        System.out.println("\nURL Original que desea acortar: ");
         String url = in.nextLine();
         RestRequest req = new RestRequest(username, url);
         JSONObject aux = new JSONObject();
-        aux.put("user", req.user);
-        aux.put("url", req.url);
+        aux.put("user", req.getUser());
+        aux.put("url", req.getUrl());
         HttpResponse shortenURL = Unirest.post("http://localhost:7000/rest/url/?username=" + username +"&password=" + password)
                 .header("accept", "application/json")
                 .header("Content-Type", "application/json")
@@ -44,6 +45,7 @@ public class Main {
         System.out.println("\nURL Acortada: ");
         System.out.println("HTTP Status: " + shortenURL.getStatus());
         System.out.println("HTTP Message: " + shortenURL.getBody().toString());
+        System.out.println("HTTP Headers: " + shortenURL.getHeaders());
 
     }
 
@@ -191,6 +193,25 @@ public class Main {
 
         public void setPreviewIMG(String previewIMG) {
             this.previewIMG = previewIMG;
+        }
+
+        @Override
+        public String toString() {
+            return "ServiciosRetorno{" +
+                    "urloriginal='" + urloriginal + '\'' +
+                    ", urlcorta='" + urlcorta + '\'' +
+                    ", fechaRegistro=" + fechaRegistro +
+                    ", fechaString='" + fechaString + '\'' +
+                    ", visitasSafari=" + visitasSafari +
+                    ", visitasOpera=" + visitasOpera +
+                    ", visitasChrome=" + visitasChrome +
+                    ", visitasEdge=" + visitasEdge +
+                    ", visitasFirefox=" + visitasFirefox +
+                    ", visitaswindows=" + visitaswindows +
+                    ", visitasubuntu=" + visitasubuntu +
+                    ", visitasandroid=" + visitasandroid +
+                    ", previewIMG='" + previewIMG + '\'' +
+                    '}';
         }
     }
 
